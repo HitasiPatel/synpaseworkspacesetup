@@ -1,11 +1,12 @@
 #Prepare your PowerShell environment: Install dependencies (run the Install and Import lines below. You just need to run it once.)
-<#
-    Install-Module -Name Az
-    Install-Module -Name Az.Accounts
-    Install-Module -Name Az.Storage
-    Install-Module -Name Az.Synapse
-    Import-Module Az.Synapse
+#Install below modules one by one and follow instructions.
+    Install-Module -Name Az 
+    Install-Module -Name Az.Accounts 
+    Install-Module -Name Az.Storage 
+    Install-Module -Name Az.Synapse 
+    Import-Module  Az.Synapse
 
+<#
     Uninstall-Module -Name Az -AllVersions -force
     Uninstall-Module -Name Az.Synapse -AllVersions -force
     Uninstall-Module -Name Az.Storage -AllVersions -force
@@ -24,26 +25,28 @@
 #Login via browser
     Connect-AzAccount
 
-#Use this step to retrieve Subscription ID. #Select the code within the <##> code block below, and hit F8 in your keyboard. 
+#Use this step to retrieve Subscription ID, and hit F8 in your keyboard. 
+    
+    Get-AzSubscription
+
 #Copy the Subscription ID (i.e.: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" ) associated with the Subscription you want to deploy your resources to.
-#Paste the Subsctription ID in the $SubscriptionID parameter below.
-    <#
-        Get-AzSubscription
-    #>
+#Paste the Subsctription ID in the $SubscriptionID parameter below.    
 
 #Variables/Input Parameters
 #Please change the parameters below and make sure to match your subscription's configuration.
 #Make sure to only change the values inside the double quotes ("").
 #Input parameters:
     $Location               = "East US 2"                                                             #Set this value to match the desired Azure Region for your resources. For a full list, please visit: https://docs.microsoft.com/en-us/azure/availability-zones/cross-region-replication-azure#azure-cross-region-replication-pairings-for-all-geographies 
-    $CompanyName            = "ms".ToLower()                                                          #The name of your company, abbreviated and without containing any spaces or special characters. For example: Set the value to "MS" for Microsoft.
-    $UserUniqueIdentifier   = "hitasipatel".ToLower()                                          #A unique identifier for yourself within your company. Can be your username or another text string you would like to use. No space and no special charactes. 
-    $SubscriptionID         = "a21e1a3d-6bd0-45d6-bf8a-16b3b296ee7c"                                  #Populate this variable with the Subscription ID retrieved above.
+    $CompanyName            = "company".ToLower()                                                          #The name of your company, abbreviated and without containing any spaces or special characters. For example: Set the value to "MS" for Microsoft.
+    $UserUniqueIdentifier   = "user".ToLower()                                                    #A unique identifier for yourself within your company. Can be your username or another text string you would like to use. No space and no special charactes. 
+    $SubscriptionID         = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                                  #Populate this variable with the Subscription ID retrieved above.
     $SqlUser                = "synwadmin"                                                             #Choose a value for the username
     $SqlPassword            = "ej7dhes#LXPF9m~bYr9D"                                                  #Choose a secure password. Feel free to use: https://passwordsgenerator.net/
-    $ClientIPAddress        = "73.74.34.141"                                         #Populate this variable with the Client IP Address retrieved above or use the $MyIPAddress variable, populated by the result of an API call to: https://api.ipify.org/
+    $ClientIPAddress        = $MyIPAddress                                                          #Populate this variable with the Client IP Address retrieved above or use the $MyIPAddress variable, populated by the result of an API call to: https://api.ipify.org/
+   
 
-#Parameters (no change needed):
+
+    #Parameters (no change needed):
     $LocationShortened      = $Location.replace(' ', '').ToLower()                                    #Do not change this parameter/value.
     $ResourceBaseName       = $CompanyName + "-" + `
                               $LocationShortened + "-" + `
