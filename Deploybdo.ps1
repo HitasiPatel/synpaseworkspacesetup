@@ -154,7 +154,7 @@
     "/providers/Microsoft.Synapse/workspaces/" +  $SynapseWorkspaceName
     $resourceIdWithManagedIdentity = $resourceIdWithManagedIdentityparm 
     $Object = (Get-AzResource -ResourceId $resourceIdWithManagedIdentity).Identity.PrincipalId
-    $scopeparm = "/subscriptions/" + $SubscriptionID + "/resourceGroups/" + $ResourceGroupName + "/Microsoft.Storage/storageAccounts/" + $StorageAccount
+    $scopeparm = "/subscriptions/" + $SubscriptionID + "/resourceGroups/" + $ResourceGroupName + "/Microsoft.Storage/storageAccounts/" + $ADLSAccountName
     New-AzRoleAssignment -ObjectID $Object `
     -RoleDefinitionName "Storage Blob Data Contributor" `
     -Scope  $scopeparm 
